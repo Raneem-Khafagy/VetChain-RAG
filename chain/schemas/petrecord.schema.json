@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["id"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "onChainTxHash": { "type": ["string","null"], "pattern": "^0x[0-9a-fA-F]{64}$" },
+    "onChainCid": { "type": ["string","null"] },
+    "sha256_expected": { "type": ["string","null"], "pattern": "^[0-9a-f]{64}$" }
+  },
+  "additionalProperties": true
+}
