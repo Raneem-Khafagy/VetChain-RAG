@@ -1,0 +1,78 @@
+## 1. Build the vector index
+
+```bash
+# From project root
+python scripts/build_index.py
+```
+
+✅ This will embed your `data/petrecords.jsonl` (or `data/all.jsonl`) and write:
+
+* `data/index.faiss`
+* `data/meta.json`
+
+---
+
+## 2. Start the API server
+
+```bash
+uvicorn api.server:app --reload
+```
+
+✅ Runs FastAPI on `http://127.0.0.1:8000`
+
+---
+
+## 3. Query the RAG system
+
+```bash
+curl -X POST http://127.0.0.1:8000/query \
+  -H "Content-Type: application/json" \
+  -d '{"symptoms":"dog dry cough and nasal discharge","top_k":5}'
+```
+
+✅ Should return JSON with retrieved cases + (if Ollama/LLM working) differential diagnoses.
+
+---
+
+## 4. Verify blockchain receipts
+
+```bash
+python scripts/verify_receipts.py data/petrecords.jsonl
+```
+
+✅ Confirms which records in your JSONL are anchored on PureChain.
+
+---
+
+## 5. (Optional) Verify a known PureChain tx directly
+
+```bash
+curl https://nsllab-kit.onrender.com/purechain/api/v1/tx/<TX_HASH>
+```
+
+✅ Replace `<TX_HASH>` with a hash from your `onChainTxHash`.
+
+---
+
+## 6. (Optional) Check balance / block info
+
+```bash
+# Check wallet balance
+curl https://nsllab-kit.onrender.com/purechain/api/v1/address/<WALLET_ADDRESS>
+
+# Latest block
+curl https://nsllab-kit.onrender.com/purechain/api/v1/block/latest
+```
+
+---
+
+⚡ Suggested workflow for you right now:
+
+1. Run `python scripts/build_index.py`
+2. Run `uvicorn api.server:app --reload`
+3. In a 2nd terminal, issue the `curl` query command.
+4. Run `python scripts/verify_receipts.py data/petrecords.jsonl` to check chain anchors.
+
+---
+
+Do you want me to also give you **Makefile shortcuts** (e.g. `make index`, `make query`) so you don’t have to type the long commands every time?
