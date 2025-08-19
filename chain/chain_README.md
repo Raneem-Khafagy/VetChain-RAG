@@ -226,7 +226,3 @@ Benefits:
 * [ ] `out/reports/verification_merged.json` present
 * [ ] RAG API returns `verified_onchain` and `receipt_html` per case
 * [ ] `out/snapshot/latest.json` present (latest block cached)
-
----
-
-**That’s it.** Drop this in as `README.txt`, and you’re ready to verify anchors, prove integrity, and surface trust signals in your RAG answers.
